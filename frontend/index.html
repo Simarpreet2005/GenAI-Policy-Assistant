@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ComplyAI – Enterprise AI Policy Compliance Platform</title>
+    <meta name="description" content="AI-powered multi-agent compliance platform for enterprise policy analysis, risk assessment, and regulatory decision support." />
+    <meta name="theme-color" content="#0a0b10" />
+    <!-- Prevent theme flash: apply persisted theme class before React renders -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('complyai-theme') || 'dark';
+          document.documentElement.classList.add(t);
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
