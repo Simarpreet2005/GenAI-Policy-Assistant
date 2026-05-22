@@ -13,7 +13,7 @@ def load_resources():
     global embedding_model
 
     if collection is None:
-        client = chromadb.PersistentClient(path="./chroma_db")
+        client = chromadb.PersistentClient(path="/app/chroma_db")
 
         collection = client.get_collection(
             name=COLLECTION_NAME
