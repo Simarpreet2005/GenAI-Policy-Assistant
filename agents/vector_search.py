@@ -4,19 +4,30 @@ from sentence_transformers import SentenceTransformer
 
 COLLECTION_NAME = "placement_policy"
 
+collection = None
+embedding_model = None
 
-client = chromadb.PersistentClient(path="./chroma_db")
 
-collection = client.get_collection(
-    name=COLLECTION_NAME
-)
+def load_resources():
+    global collection
+    global embedding_model
 
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+    if collection is None:
+        client = chromadb.PersistentClient(path="/app/chroma_db")
+
+        collection = client.get_collection(
+            name=COLLECTION_NAME
+        )
+
+    if embedding_model is None:
+        embedding_model = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
 
 
 def search_policy(query, top_k=3):
+    load_resources()
+
     query_embedding = embedding_model.encode(query).tolist()
 
     results = collection.query(

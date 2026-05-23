@@ -13,8 +13,3 @@ env/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-
-# Vector database
-chroma_db/
-
-data/
