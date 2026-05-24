@@ -11,7 +11,7 @@ const LandingPage = () => {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent1 flex items-center justify-center text-white shadow-lg shadow-primary/20">
             <Zap size={22} className="fill-current" />
           </div>
-          <span className="font-bold text-xl tracking-tight">ComplyAI</span>
+          <span className="font-bold text-xl tracking-tight">PlacementAI</span>
         </div>
         <Link 
           to="/chat" 
@@ -33,7 +33,7 @@ const LandingPage = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
           </span>
-          Next-Gen Policy Assistant
+          LPU Student Placement Assistant
         </motion.div>
         
         <motion.h1 
@@ -42,7 +42,7 @@ const LandingPage = () => {
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 leading-tight"
         >
-          AI Policy & Compliance <br />
+          LPU Placement Policy <br />
           <span className="text-gradient">Assistant Workspace</span>
         </motion.h1>
         
@@ -52,7 +52,7 @@ const LandingPage = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="text-xl text-textMuted mb-10 max-w-2xl font-light"
         >
-          Multi-agent AI workflow featuring semantic policy retrieval, real-time compliance validation, and executive decision summaries.
+          Multi-agent AI workflow featuring semantic placement policy retrieval, student eligibility rule evaluation, and placement risk analysis.
         </motion.p>
         
         <motion.div
@@ -65,7 +65,7 @@ const LandingPage = () => {
             className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent1 text-white rounded-full font-semibold text-lg overflow-hidden shadow-xl shadow-primary/20 transition-all hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-0.5"
           >
             <span className="absolute inset-0 w-full h-full bg-white/20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out"></span>
-            Get Started Now
+            Launch Assistant Now
           </Link>
         </motion.div>
       </main>
@@ -77,29 +77,29 @@ const LandingPage = () => {
           <FeatureCard 
             icon={<Search className="text-secondary" size={24} />}
             title="Retrieval Agent"
-            desc="Semantically searches policy databases for relevant context."
+            desc="Semantically searches LPU placement policy database for relevant rules."
           />
           <FeatureCard 
             icon={<Shield className="text-primary" size={24} />}
-            title="Compliance Agent"
-            desc="Evaluates context against regulatory requirements."
+            title="Eligibility Agent"
+            desc="Evaluates student eligibility rules and CGPA/backlog constraints."
           />
           <FeatureCard 
             icon={<CheckCircle className="text-accent2" size={24} />}
-            title="Risk Detection"
-            desc="Flags potential policy violations and assigns risk levels."
+            title="Risk Analysis"
+            desc="Flags policy exceptions, offer rejections, and placement conflicts."
           />
           <FeatureCard 
             icon={<FileText className="text-accent1" size={24} />}
             title="Summary Agent"
-            desc="Generates concise, citable summaries for decision makers."
+            desc="Generates concise, citable placement guidelines evaluations."
           />
         </div>
       </section>
       
       {/* Footer */}
       <footer className="text-center text-textMuted text-sm mt-auto z-10">
-        <p>&copy; 2026 ComplyAI. Enterprise Liquid Glass Edition.</p>
+        <p>&copy; 2026 PlacementAI. LPU Student Assistant Edition.</p>
       </footer>
     </div>
   );
