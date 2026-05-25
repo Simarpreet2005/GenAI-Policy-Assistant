@@ -402,6 +402,29 @@ https://genai-policy-backend-424955378865.asia-south1.run.app/docs
 * Frontend-backend live integration
 
 ---
+# Evaluation & Grounding
+
+The backend includes a lightweight retrieval-evaluation layer to improve response reliability and transparency.
+
+## Current Evaluation Signals
+
+* Semantic retrieval similarity scoring using ChromaDB vector distances
+* Grounded-response metadata validation
+* Retrieval-context-based reasoning generation
+
+These evaluation signals are exposed through the backend API and help estimate how strongly the generated response aligns with retrieved university policy context.
+
+Example backend metadata:
+
+```json
+{
+  "confidence_score": 93,
+  "retrieval_similarity": 0.93,
+  "grounded_response": true
+}
+```
+
+Future iterations may expand this into a dedicated evaluation dashboard and advanced response verification pipeline.
 
 # Contributors
 
