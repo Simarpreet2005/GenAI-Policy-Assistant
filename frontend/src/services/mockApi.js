@@ -19,35 +19,25 @@ export const mockChatRequest = async (message, onStepUpdate, signal) => {
   if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
   if (onStepUpdate) onStepUpdate(0, 'completed', 'Relevant LPU placement policy clauses retrieved.');
 
-  // Step 1: Eligibility Evaluation Agent
-  if (onStepUpdate) onStepUpdate(1, 'active', 'Parsing student placement eligibility rules...');
+  // Step 1: Risk Analysis Agent
+  if (onStepUpdate) onStepUpdate(1, 'active', 'Assessing placement risk factors...');
   await delay(400);
   if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
 
-  if (onStepUpdate) onStepUpdate(1, 'processing', 'Evaluating rules constraints against query...');
+  if (onStepUpdate) onStepUpdate(1, 'processing', 'Evaluating potential policy exceptions or backlog restrictions...');
   await delay(500);
   if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
-  if (onStepUpdate) onStepUpdate(1, 'completed', 'Placement eligibility evaluation completed.');
+  if (onStepUpdate) onStepUpdate(1, 'completed', 'Placement policy risk analysis completed.');
 
-  // Step 2: Risk Analysis Agent
-  if (onStepUpdate) onStepUpdate(2, 'active', 'Assessing placement risk factors...');
+  // Step 2: Summary Agent
+  if (onStepUpdate) onStepUpdate(2, 'active', 'Drafting student response...');
   await delay(400);
   if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
 
-  if (onStepUpdate) onStepUpdate(2, 'processing', 'Evaluating potential policy exceptions or backlog restrictions...');
-  await delay(500);
-  if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
-  if (onStepUpdate) onStepUpdate(2, 'completed', 'Placement policy risk analysis completed.');
-
-  // Step 3: Summary Generation Agent
-  if (onStepUpdate) onStepUpdate(3, 'active', 'Drafting student response...');
-  await delay(400);
-  if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
-
-  if (onStepUpdate) onStepUpdate(3, 'processing', 'Formatting citations and policy details...');
+  if (onStepUpdate) onStepUpdate(2, 'processing', 'Formatting citations and policy details...');
   await delay(450);
   if (signal?.aborted) throw new DOMException('Request aborted', 'AbortError');
-  if (onStepUpdate) onStepUpdate(3, 'completed', 'Response package generated successfully.');
+  if (onStepUpdate) onStepUpdate(2, 'completed', 'Response package generated successfully.');
 
   // Live Cloud Run FastAPI backend execution
   const response = await fetch(

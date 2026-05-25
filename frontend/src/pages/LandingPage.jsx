@@ -73,16 +73,11 @@ const LandingPage = () => {
       {/* Features Section */}
       <section className="max-w-6xl mx-auto w-full mt-32 mb-24 z-10">
         <h2 className="text-2xl font-semibold mb-10 text-center">Intelligent Multi-Agent Core</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <FeatureCard 
             icon={<Search className="text-secondary" size={24} />}
             title="Retrieval Agent"
             desc="Semantically searches LPU placement policy database for relevant rules."
-          />
-          <FeatureCard 
-            icon={<Shield className="text-primary" size={24} />}
-            title="Eligibility Agent"
-            desc="Evaluates student eligibility rules and CGPA/backlog constraints."
           />
           <FeatureCard 
             icon={<CheckCircle className="text-accent2" size={24} />}

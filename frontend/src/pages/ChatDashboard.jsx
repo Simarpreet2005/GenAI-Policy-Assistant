@@ -53,9 +53,8 @@ const ChatDashboard = () => {
     currentStep: -1,
     steps: [
       { id: 0, title: "Retrieval Agent", status: "pending", message: "Searching LPU placement policies database and retrieving relevant rules." },
-      { id: 1, title: "Eligibility Agent", status: "pending", message: "Analyzing policies and evaluating student eligibility constraints." },
-      { id: 2, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
-      { id: 3, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
+      { id: 1, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
+      { id: 2, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
     ]
   });
 
@@ -94,9 +93,8 @@ const ChatDashboard = () => {
       currentStep: -1,
       steps: [
         { id: 0, title: "Retrieval Agent", status: "pending", message: "Searching LPU placement policies database and retrieving relevant rules." },
-        { id: 1, title: "Eligibility Agent", status: "pending", message: "Analyzing policies and evaluating student eligibility constraints." },
-        { id: 2, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
-        { id: 3, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
+        { id: 1, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
+        { id: 2, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
       ]
     });
 
@@ -196,9 +194,8 @@ const ChatDashboard = () => {
       currentStep: -1,
       steps: [
         { id: 0, title: "Retrieval Agent", status: "pending", message: "Searching LPU placement policies database and retrieving relevant rules." },
-        { id: 1, title: "Eligibility Agent", status: "pending", message: "Analyzing policies and evaluating student eligibility constraints." },
-        { id: 2, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
-        { id: 3, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
+        { id: 1, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
+        { id: 2, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
       ]
     });
     setInput('');
@@ -299,9 +296,8 @@ const ChatDashboard = () => {
       currentStep: 0,
       steps: [
         { id: 0, title: "Retrieval Agent", status: "active", message: "Connecting to policy vector index..." },
-        { id: 1, title: "Eligibility Agent", status: "pending", message: "Analyzing policies and evaluating student eligibility constraints." },
-        { id: 2, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
-        { id: 3, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
+        { id: 1, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
+        { id: 2, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
       ]
     });
 
@@ -367,7 +363,15 @@ const ChatDashboard = () => {
 
     // ALWAYS cleanup
     setIsTyping(false);
-
+    setWorkflow({
+      status: 'idle',
+      currentStep: -1,
+      steps: [
+        { id: 0, title: "Retrieval Agent", status: "pending", message: "Searching LPU placement policies database and retrieving relevant rules." },
+        { id: 1, title: "Risk Analysis Agent", status: "pending", message: "Assessing policy exceptions, offer rejections, or backlog conflicts." },
+        { id: 2, title: "Summary Agent", status: "pending", message: "Generating final response with citable guidelines." }
+      ]
+    });
 
     abortControllerRef.current = null;
 
@@ -637,12 +641,14 @@ const ChatDashboard = () => {
           {/* Main Chat Body */}
           <div className="flex-1 glass-panel flex flex-col overflow-hidden rounded-[20px] shadow-lg relative">
             <div className="flex-1 overflow-y-auto custom-scrollbar p-3 md:p-6 lg:p-8 flex flex-col gap-6 md:gap-8">
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {/* Onboarding Empty State */}
-                {messages.length === 0 && !isTyping && (
+                {messages.length === 0 && workflow.status === 'idle' && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15 }} 
+                    key="empty-state"
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
                     className="m-auto text-center text-textMuted flex flex-col items-center gap-5 max-w-2xl px-4 py-6"
                   >
                     <div className="w-16 h-16 rounded-full glass flex items-center justify-center shadow-lg shadow-primary/10 relative">
@@ -660,21 +666,17 @@ const ChatDashboard = () => {
                     {/* Workflow Preview Card */}
                     <div className="w-full glass-card p-4 text-left border-panelBorder bg-white/[0.01]">
                       <span className="text-[10px] font-bold text-primary uppercase tracking-widest block mb-3">Multi-Agent Workflow Protocol</span>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-[11px]">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-[11px]">
                         <div className="p-2.5 bg-white/5 dark:bg-black/20 rounded-xl border border-panelBorder">
                           <span className="font-semibold text-textMain block mb-0.5">1. Retrieval</span>
                           <span className="text-[10px] text-textMuted leading-tight block">Scan LPU placement policies.</span>
                         </div>
                         <div className="p-2.5 bg-white/5 dark:bg-black/20 rounded-xl border border-panelBorder">
-                          <span className="font-semibold text-textMain block mb-0.5">2. Eligibility</span>
-                          <span className="text-[10px] text-textMuted leading-tight block">Evaluate academic constraints.</span>
-                        </div>
-                        <div className="p-2.5 bg-white/5 dark:bg-black/20 rounded-xl border border-panelBorder">
-                          <span className="font-semibold text-textMain block mb-0.5">3. Risk Analysis</span>
+                          <span className="font-semibold text-textMain block mb-0.5">2. Risk Analysis</span>
                           <span className="text-[10px] text-textMuted leading-tight block">Flag exceptions & conflicts.</span>
                         </div>
                         <div className="p-2.5 bg-white/5 dark:bg-black/20 rounded-xl border border-panelBorder">
-                          <span className="font-semibold text-textMain block mb-0.5">4. Summary</span>
+                          <span className="font-semibold text-textMain block mb-0.5">3. Summary</span>
                           <span className="text-[10px] text-textMuted leading-tight block">Format citable answers.</span>
                         </div>
                       </div>
@@ -779,10 +781,11 @@ const ChatDashboard = () => {
                 ))}
 
                 {/* Shimmer skeleton for active typing state */}
-                {isTyping && (
+                {workflow.status === 'running' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
                     className="flex gap-3 md:gap-4 max-w-[85%]"
                   >
                     <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 mt-1 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white shadow-lg border border-white/10">
@@ -885,7 +888,7 @@ const ChatDashboard = () => {
                 workflow.status === 'running' ? 'bg-primary/10 text-primary border-primary/20 shadow-primary/10 animate-pulse' :
                 'bg-white/5 text-gray-400 border-panelBorder'
               }`}>
-                {workflow.status === 'completed' ? 'Completed' : workflow.status === 'running' ? `Step ${workflow.currentStep + 1}/4` : 'Ready'}
+                {workflow.status === 'completed' ? 'Completed' : workflow.status === 'running' ? `Step ${workflow.currentStep + 1}/3` : 'Ready'}
               </span>
               <button className="xl:hidden p-2 -mr-2 text-gray-400 hover:text-textMain bg-white/5 rounded-full" onClick={() => setWorkflowOpen(false)}>
                 <X size={18} />
@@ -905,16 +908,11 @@ const ChatDashboard = () => {
                 let glowClass = "from-primary";
 
                 if (step.id === 1) {
-                  icon = <ShieldCheck size={16} />;
-                  color = "bg-secondary";
-                  glow = "shadow-[0_0_15px_rgba(139,92,246,0.2)]";
-                  glowClass = "from-secondary";
-                } else if (step.id === 2) {
                   icon = <Activity size={16} />;
                   color = "bg-orange-500";
                   glow = "shadow-[0_0_15px_rgba(249,115,22,0.2)]";
                   glowClass = "from-orange-500";
-                } else if (step.id === 3) {
+                } else if (step.id === 2) {
                   icon = <MessageSquare size={16} />;
                   color = "bg-pink-500";
                   glow = "shadow-[0_0_15px_rgba(244,114,182,0.2)]";
