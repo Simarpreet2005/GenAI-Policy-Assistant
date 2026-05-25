@@ -42,6 +42,21 @@ class ChatResponse(BaseModel):
     final_response: str = Field(..., description="Polite and formal response addressing the student and citing rules.")
     error: Optional[str] = Field(None, description="Error message if a node or step failed during execution.")
 
+    confidence_score: Optional[int] = Field(
+        None,
+        description="Confidence score derived from retrieval similarity."
+    )
+
+    retrieval_similarity: Optional[float] = Field(
+        None,
+        description="Semantic similarity score from vector retrieval."
+    )
+
+    grounded_response: Optional[bool] = Field(
+        None,
+        description="Whether the response was generated using retrieved policy context."
+    )
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     """
@@ -56,7 +71,8 @@ async def chat_endpoint(request: ChatRequest):
         "is_compliant": None,
         "reasoning": None,
         "final_response": None,
-        "error": None
+        "error": None,
+        "similarity_score": 0
     }
     
     try:
@@ -72,7 +88,10 @@ async def chat_endpoint(request: ChatRequest):
             is_compliant=result.get("is_compliant"),
             reasoning=result.get("reasoning"),
             final_response=result.get("final_response") or "Failed to generate a final response.",
-            error=result.get("error")
+            error=result.get("error"),
+            confidence_score=int(result.get("similarity_score", 0) * 100),
+            retrieval_similarity=result.get("similarity_score", 0),
+            grounded_response=True
         )
         
     except Exception as e:

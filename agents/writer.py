@@ -19,7 +19,10 @@ def writer_node(state: Dict[str, Any]) -> Dict[str, Any]:
             "We apologize, but an internal processing error occurred while evaluating your request. "
             f"Detail: {state.get('error')}. Please contact Career Services support."
         )
-        return {"final_response": fallback_msg}
+        return {
+            **state,
+            "final_response": fallback_msg
+        }
 
     try:
         if not os.environ.get("GROQ_API_KEY"):
@@ -51,7 +54,10 @@ def writer_node(state: Dict[str, Any]) -> Dict[str, Any]:
         
         final_text = response.content
         logger.info("Summary response drafted successfully.")
-        return {"final_response": str(final_text)}
+        return {
+            **state,
+            "final_response": str(final_text)
+        }
         
     except Exception as e:
         logger.exception("Error in writer_node processing query: %s", query)
@@ -60,6 +66,7 @@ def writer_node(state: Dict[str, Any]) -> Dict[str, Any]:
             f"Judge verdict reasoning: {reasoning}. Please consult the Career Services manual or try again later."
         )
         return {
+            **state,
             "final_response": fallback_msg,
             "error": f"Writer Error: {str(e)}"
         }

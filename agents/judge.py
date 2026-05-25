@@ -52,6 +52,7 @@ def judge_node(state: Dict[str, Any]) -> Dict[str, Any]:
         
         logger.info("Compliance evaluation completed: is_compliant=%s", evaluation.is_compliant)
         return {
+            **state,
             "is_compliant": evaluation.is_compliant,
             "reasoning": evaluation.reasoning
         }
@@ -59,6 +60,7 @@ def judge_node(state: Dict[str, Any]) -> Dict[str, Any]:
     except Exception as e:
         logger.exception("Error in judge_node processing query: %s", query)
         return {
+            **state,
             "is_compliant": False,
             "reasoning": f"An error occurred during compliance evaluation: {str(e)}",
             "error": f"Judge Error: {str(e)}"

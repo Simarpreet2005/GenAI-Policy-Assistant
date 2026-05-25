@@ -15,6 +15,7 @@ class AgentState(TypedDict):
     reasoning: Optional[str]
     final_response: Optional[str]
     error: Optional[str]
+    similarity_score: float
 
 # Define the state graph with our state schema
 workflow = StateGraph(AgentState)

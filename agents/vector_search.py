@@ -13,7 +13,8 @@ def load_resources():
     global embedding_model
 
     if collection is None:
-        client = chromadb.PersistentClient(path="/app/chroma_db")
+        # client = chromadb.PersistentClient(path="/app/chroma_db")
+        client = chromadb.PersistentClient(path="./chroma_db")
 
         collection = client.get_collection(
             name=COLLECTION_NAME
@@ -34,7 +35,12 @@ def search_policy(query, top_k=3):
         query_embeddings=[query_embedding],
         n_results=top_k
     )
-
     documents = results.get("documents", [[]])[0]
+    distances = results.get("distances", [[]])[0]
 
-    return documents
+    similarity_score = distances[0] if distances else 0
+
+    return {
+        "documents": documents,
+        "similarity_score": round(similarity_score, 2)
+    }
